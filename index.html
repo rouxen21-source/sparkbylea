@@ -10,169 +10,459 @@
   --teal:#1f9e9a;
   --deep:#0f3f4a;
   --gold:#c9a24d;
-  --soft:#f7fbfb;
+  --ink:#102126;
+  --soft:#f6fbfb;
+  --line:#e6eef0;
 }
 
 *{box-sizing:border-box}
-
+html,body{margin:0;padding:0}
 body{
-  margin:0;
   font-family:'Segoe UI', Tahoma, Arial, sans-serif;
-  background:#ffffff;
-  color:#1b2a2f;
+  color:var(--ink);
+  background:#fff;
   line-height:1.6;
+  overflow-x:hidden;
 }
 
-header{
-  padding:50px 20px;
-  text-align:center;
-  background:var(--soft);
+/* Subtle luxury moving background */
+.bg{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background:
+    radial-gradient(900px 500px at 10% 10%, rgba(31,158,154,.10), transparent 55%),
+    radial-gradient(700px 420px at 90% 20%, rgba(201,162,77,.10), transparent 55%),
+    radial-gradient(800px 520px at 60% 95%, rgba(15,63,74,.08), transparent 60%),
+    linear-gradient(#ffffff, #ffffff);
+}
+.bg::after{
+  content:"";
+  position:absolute;
+  inset:-80px;
+  background:
+    radial-gradient(240px 180px at 20% 30%, rgba(31,158,154,.12), transparent 70%),
+    radial-gradient(260px 200px at 80% 40%, rgba(201,162,77,.10), transparent 70%);
+  filter: blur(18px);
+  animation: floaty 10s ease-in-out infinite alternate;
+  opacity:.7;
+}
+@keyframes floaty{
+  from{transform:translate3d(-10px,-8px,0)}
+  to{transform:translate3d(12px,10px,0)}
 }
 
-.hero-img{
-  width:100%;
-  max-height:460px;
+.container{
+  max-width:1120px;
+  margin:0 auto;
+  padding:0 18px;
+}
+
+.topbar{
+  position:sticky;
+  top:0;
+  backdrop-filter: blur(10px);
+  background:rgba(255,255,255,.78);
+  border-bottom:1px solid rgba(230,238,240,.7);
+  z-index:5;
+}
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:12px 0;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+  color:inherit;
+}
+.logo{
+  width:44px;height:44px;
+  border-radius:14px;
+  background:#fff;
+  border:1px solid var(--line);
   object-fit:cover;
-  border-radius:22px;
-  margin:0 auto 28px;
+}
+.brand-name{
+  font-weight:800;
+  letter-spacing:.2px;
+}
+.brand-tag{
   display:block;
-}
-
-.badge{
-  display:inline-block;
-  padding:8px 16px;
-  border:1px solid var(--gold);
-  color:var(--gold);
-  border-radius:999px;
-  font-weight:600;
-  margin-bottom:10px;
-}
-
-h1{
-  margin:10px 0 8px;
-  font-size:44px;
-  color:var(--deep);
-}
-
-.tag{
-  font-size:18px;
+  font-size:12px;
   color:#4b6b73;
-  margin:0 0 26px;
+  margin-top:2px;
 }
+.links{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.links a{
+  text-decoration:none;
+  color:#23434b;
+  font-weight:600;
+  font-size:14px;
+  padding:8px 10px;
+  border-radius:10px;
+}
+.links a:hover{background:rgba(31,158,154,.08)}
 
 .btn{
   display:inline-block;
-  padding:14px 26px;
+  padding:13px 18px;
   border-radius:12px;
   background:linear-gradient(135deg,var(--teal),var(--deep));
   color:#fff;
   text-decoration:none;
-  font-weight:700;
+  font-weight:800;
+  box-shadow:0 10px 25px rgba(15,63,74,.18);
 }
+.btn:active{transform:translateY(1px)}
+.btn-outline{
+  background:#fff;
+  color:var(--deep);
+  border:1px solid rgba(15,63,74,.25);
+  box-shadow:none;
+}
+
+.hero{
+  padding:34px 0 10px;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:22px;
+  align-items:center;
+}
+@media(max-width:920px){
+  .hero-grid{grid-template-columns:1fr}
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid rgba(201,162,77,.55);
+  color:#8b6a1e;
+  background:rgba(255,255,255,.75);
+  font-weight:800;
+  width:max-content;
+}
+.headline{
+  font-size:46px;
+  line-height:1.1;
+  margin:14px 0 10px;
+  color:var(--deep);
+  letter-spacing:-.6px;
+}
+.subhead{
+  font-size:17px;
+  color:#3d5b62;
+  max-width:56ch;
+}
+.cta-row{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+.offer{
+  margin-top:16px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.offer-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 14px;
+  border-radius:14px;
+  border:1px dashed rgba(201,162,77,.75);
+  background:rgba(255,255,255,.85);
+  font-weight:800;
+}
+.offer-pill strong{
+  color:var(--gold);
+  font-size:18px;
+}
+
+.hero-card{
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:rgba(255,255,255,.78);
+  overflow:hidden;
+  box-shadow:0 18px 50px rgba(16,33,38,.10);
+}
+.hero-img{
+  width:100%;
+  height:360px;
+  object-fit:cover;
+  display:block;
+}
+.hero-card-body{
+  padding:16px 18px 18px;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:10px;
+}
+.stat{
+  border:1px solid rgba(230,238,240,.9);
+  border-radius:16px;
+  padding:12px 12px;
+  background:#fff;
+}
+.stat b{display:block;color:var(--deep)}
+.stat span{font-size:12px;color:#4b6b73}
 
 .section{
-  padding:64px 20px;
-  max-width:1100px;
-  margin:0 auto;
+  padding:62px 0;
 }
-
 .section.soft{
-  background:var(--soft);
+  background:rgba(246,251,251,.7);
+  border-top:1px solid rgba(230,238,240,.9);
+  border-bottom:1px solid rgba(230,238,240,.9);
+}
+.h2{
+  margin:0 0 10px;
+  font-size:30px;
+  color:var(--deep);
+}
+.p{
+  margin:0;
+  color:#3d5b62;
+  max-width:78ch;
 }
 
 .cards{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:22px;
-  margin-top:30px;
+  gap:18px;
+  margin-top:22px;
 }
-
 .card{
-  border:1px solid #e6eef0;
+  border:1px solid var(--line);
   border-radius:20px;
-  padding:28px;
-  background:#fff;
-  font-weight:600;
+  padding:20px 18px;
+  background:rgba(255,255,255,.86);
+  box-shadow:0 12px 32px rgba(16,33,38,.08);
 }
+.card h3{margin:0 0 8px;color:var(--deep)}
+.card p{margin:0;color:#3d5b62;font-size:14px}
 
 .gallery{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:22px;
-  margin-top:30px;
+  gap:18px;
+  margin-top:24px;
 }
-
 .gallery img{
   width:100%;
   height:260px;
   object-fit:cover;
   border-radius:20px;
-  display:block;
+  border:1px solid rgba(230,238,240,.9);
+  background:#fff;
 }
 
-.footer{
-  background:#0f3f4a;
-  color:#ffffff;
-  padding:36px 20px;
-  text-align:center;
-  font-size:14px;
+.split{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:18px;
+  align-items:start;
 }
+@media(max-width:900px){.split{grid-template-columns:1fr}}
+
+.list{
+  margin:12px 0 0;
+  padding-left:18px;
+  color:#3d5b62;
+}
+.list li{margin:6px 0}
+
+.footer{
+  padding:34px 0;
+  background:var(--deep);
+  color:#eaf6f8;
+}
+.footer a{color:#eaf6f8}
+.small{opacity:.92;font-size:13px}
+
 </style>
 </head>
 
 <body>
+<div class="bg"></div>
 
-<header>
-  <img src="images/hero.jpg" alt="SparkByLea professional cleaning services" class="hero-img" />
-  <span class="badge">Luxury Mobile Cleaning</span>
-  <h1>SparkByLea</h1>
-  <p class="tag">Fresh Space. Clear Mind.</p>
-  <a class="btn" href="https://wa.me/27647249564">Book on WhatsApp</a>
-</header>
+<div class="topbar">
+  <div class="container nav">
+    <a class="brand" href="#top">
+      <img class="logo" src="images/logo.png" alt="SparkByLea logo" />
+      <div>
+        <div class="brand-name">SparkByLea</div>
+        <span class="brand-tag">Fresh Space. Clear Mind.</span>
+      </div>
+    </a>
 
-<section class="section">
-  <h2>Our Services</h2>
-  <div class="cards">
-    <div class="card">Elegant Home Cleaning</div>
-    <div class="card">Move-In &amp; Move-Out Cleaning</div>
-    <div class="card">Office &amp; Corporate Cleaning</div>
-    <div class="card">After-Event &amp; Activation Cleaning</div>
-    <div class="card">Deep &amp; Detail Cleaning</div>
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#work">Our Work</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</div>
+
+<main id="top" class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="badge">✨ Luxury Mobile Cleaning • Gauteng</div>
+      <h1 class="headline">Welcome to SparkByLea</h1>
+      <p class="subhead">
+        Professional, reliable mobile cleaning services designed to bring comfort, freshness,
+        and peace of mind to your space.
+      </p>
+
+      <div class="offer">
+        <div class="offer-pill">
+          <strong>10% OFF</strong> on your first booking
+        </div>
+        <span class="small">WhatsApp for a quick quote & available slots.</span>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn" href="https://wa.me/27647249564">Book on WhatsApp</a>
+        <a class="btn btn-outline" href="#services">View Services</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <img class="hero-img" src="images/hero.jpg" alt="Professional cleaning service" />
+      <div class="hero-card-body">
+        <div class="small"><b>Premium finish. Consistent results.</b> Midrand-based • We travel across Gauteng.</div>
+        <div class="stats">
+          <div class="stat"><b>Homes</b><span>Routine & deep cleans</span></div>
+          <div class="stat"><b>Offices</b><span>Workspaces & corporate</span></div>
+          <div class="stat"><b>Events</b><span>After-event cleanup</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<section id="about" class="section soft">
+  <div class="container split">
+    <div>
+      <h2 class="h2">About SparkByLea</h2>
+      <p class="p">
+        We take pride in delivering spotless results with care, consistency, and attention to detail —
+        so you can enjoy a clean, serene environment without the stress.
+      </p>
+      <ul class="list">
+        <li>Reliable, detail-focused cleaning</li>
+        <li>Eco-conscious products on request</li>
+        <li>Midrand-based for quick response</li>
+        <li><b>We travel all over Gauteng</b></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Address</h3>
+      <p>
+        05 Diagonal Street,<br />
+        Grand Central Towers,<br />
+        Midrand, 1685
+      </p>
+      <p style="margin-top:10px"><b>Contact Person:</b> Palesa M.</p>
+    </div>
   </div>
 </section>
 
-<section class="section soft">
-  <h2 style="text-align:center;">Our Work</h2>
-  <p style="text-align:center; max-width:800px; margin:10px auto;">
-    A refined finish delivered with care, consistency, and attention to detail — trusted across Gauteng.
-  </p>
+<section id="services" class="section">
+  <div class="container">
+    <h2 class="h2">Services</h2>
+    <p class="p">Luxury-level cleaning for homes, offices, and events — delivered professionally and on time.</p>
 
-  <div class="gallery">
-    <img src="images/about-cleaning.jpg" alt="Professional cleaning by SparkByLea" />
-    <img src="images/service-home.jpg" alt="Luxury home cleaning" />
-    <img src="images/service-office.jpg" alt="Office cleaning services" />
+    <div class="cards">
+      <div class="card">
+        <h3>Residential Cleaning</h3>
+        <p>Routine or once-off cleaning to keep your home fresh, calm, and spotless.</p>
+      </div>
+      <div class="card">
+        <h3>Move-In / Move-Out</h3>
+        <p>Deep cleaning for handovers, new tenants, and fresh starts.</p>
+      </div>
+      <div class="card">
+        <h3>Office & Workspace</h3>
+        <p>Professional cleaning that supports a clean, productive environment.</p>
+      </div>
+      <div class="card">
+        <h3>After-Event Cleaning</h3>
+        <p>We handle the mess after gatherings, activations, and events.</p>
+      </div>
+      <div class="card">
+        <h3>Deep Cleaning</h3>
+        <p>Detail-focused, top-to-bottom cleaning for a true reset.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="section">
-  <h2>Service Area</h2>
-  <p><strong>We travel all over Gauteng.</strong></p>
-  <p>Based in Midrand for fast response times.</p>
+<section id="work" class="section soft">
+  <div class="container">
+    <h2 class="h2" style="text-align:center;">Our Work</h2>
+    <p class="p" style="text-align:center; margin:0 auto;">
+      A refined finish delivered with care, consistency, and attention to detail — trusted across Gauteng.
+    </p>
+
+    <div class="gallery">
+      <img src="images/about-cleaning.jpg" alt="Professional cleaning by SparkByLea" />
+      <img src="images/service-home.jpg" alt="Luxury home cleaning" />
+      <img src="images/service-office.jpg" alt="Office cleaning services" />
+    </div>
+  </div>
 </section>
 
-<section class="section soft">
-  <h2>Contact</h2>
-  <p><strong>Call or WhatsApp:</strong> 064 724 9564</p>
-  <p><strong>Email:</strong> Leanom058@gmail.com</p>
-  <p>
-    05 Diagonal Street,<br />
-    Grand Central Towers,<br />
-    Midrand, 1685
-  </p>
+<section id="contact" class="section">
+  <div class="container split">
+    <div>
+      <h2 class="h2">Contact & Bookings</h2>
+      <p class="p">For pricing and availability, message us on WhatsApp — fast reply.</p>
+      <div class="cta-row" style="margin-top:16px">
+        <a class="btn" href="https://wa.me/27647249564">WhatsApp: 064 724 9564</a>
+        <a class="btn btn-outline" href="mailto:Leanom058@gmail.com">Email Us</a>
+      </div>
+      <p class="small" style="margin-top:14px"><b>Service area:</b> We travel all over Gauteng.</p>
+    </div>
+
+    <div class="card">
+      <h3>Quick Info</h3>
+      <ul class="list">
+        <li><b>Phone/WhatsApp:</b> 064 724 9564</li>
+        <li><b>Email:</b> Leanom058@gmail.com</li>
+        <li><b>Address:</b> 05 Diagonal Street, Grand Central Towers, Midrand, 1685</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <footer class="footer">
-  © SparkByLea — Fresh Space. Clear Mind.
+  <div class="container">
+    <div class="small">© SparkByLea — Fresh Space. Clear Mind.</div>
+  </div>
 </footer>
 
 </body>
